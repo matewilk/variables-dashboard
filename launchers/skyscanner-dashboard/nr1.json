@@ -1,0 +1,7 @@
+{
+  "schemaType": "LAUNCHER",
+  "id": "skyscanner-dashboard",
+  "displayName": "SkyscannerDashboard",
+  "description": "Describe me",
+  "rootNerdletId": "73ebb866-26f9-4b27-bebb-4fe0cee21401.variables-dashboard"
+}
