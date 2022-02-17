@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { NerdGraphQuery } from "nr1";
 
+import { useFilter } from "../filter/filterContext";
+
 const colourStyles = {
   control: (styles) => ({
     ...styles,
@@ -41,10 +43,9 @@ export const MultiSelect = ({
   initialOptions,
   isMulti = true,
   isAsync = true,
-  query = '',
-  filter,
-  setFilter
+  query = "",
 }) => {
+  const [filter, setFilter] = useFilter();
   const [options, setOptions] = useState(initialOptions);
 
   useEffect(() => {
@@ -54,7 +55,7 @@ export const MultiSelect = ({
         query,
       });
       const items = formatQueryResponse(result);
-      setOptions(items);
+      setOptions([...initialOptions, ...items]);
     };
     isAsync ? loadOptions() : null;
   }, [initialOptions, isAsync]);
@@ -70,6 +71,7 @@ export const MultiSelect = ({
       placeholder={name}
       options={options}
       onChange={onChange}
+      isClearable={true}
     />
   );
 };

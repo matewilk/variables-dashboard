@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-// import { Button } from "nr1"
+import React from "react";
+import { Button } from "nr1";
 
 import { MultiSelect } from "./MultiSelect";
+import { useFilter } from "../filter/filterContext";
 
 const style = {
   display: "flex",
@@ -12,7 +13,8 @@ const style = {
   padding: "5px",
 };
 
-export const FilterForm = ({ filter, setFilter, setAppliedFilter }) => {
+export const FilterForm = ({ setAppliedFilter }) => {
+  const [filter] = useFilter()
   const onSubmit = (e) => {
     e.preventDefault();
     setAppliedFilter(filter);
@@ -30,8 +32,6 @@ export const FilterForm = ({ filter, setFilter, setAppliedFilter }) => {
         ]}
         isAsync={false}
         isMulti={false}
-        filter={filter}
-        setFilter={setFilter}
       />
       <MultiSelect
         name={"Cluster"}
@@ -40,8 +40,36 @@ export const FilterForm = ({ filter, setFilter, setAppliedFilter }) => {
           { label: "cluster 2", value: "cluster 2" },
         ]}
         query={`SELECT uniques(metricName) as items FROM Metric`}
-        filter={filter}
-        setFilter={setFilter}
+      />
+      <MultiSelect
+        name={"Facet"}
+        initialOptions={[
+          { label: "host.name", value: "host.name" },
+          { label: "via", value: "via" },
+        ]}
+        isAsync={false}
+      />
+      <MultiSelect
+        name={"Since"}
+        initialOptions={[
+          { label: "30 min", value: "30" },
+          { label: "60 min", value: "60" },
+          { label: "90 min", value: "90" },
+          { label: "120 min", value: "120" },
+        ]}
+        isAsync={false}
+        isMulti={false}
+      />
+      <MultiSelect
+        name={"Timeseries"}
+        initialOptions={[
+          { label: "1 min", value: "1 minute" },
+          { label: "5 mins", value: "5 minutes" },
+          { label: "10 mins", value: "10 minutes" },
+          { label: "1 hour", value: "1 hour" },
+        ]}
+        isAsync={false}
+        isMulti={false}
       />
       {/* <MultiSelect
       name={"Service"}
@@ -80,10 +108,9 @@ export const FilterForm = ({ filter, setFilter, setAppliedFilter }) => {
       isMulti={false}
       initialOptions={[{ label: "auto", value: "auto" }]}
     /> */}
-      {/* <Button type={Button.TYPE.PRIMARY}>Submit</Button> */}
-      <button type="submit" onClick={onSubmit}>
-        Submit
-      </button>
+      <Button type={Button.TYPE.PRIMARY} onClick={onSubmit}>
+        Filter
+      </Button>
     </form>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { BillboardChart, BlockText, TableChart, NrqlQuery } from "nr1";
+import { LineChart, BlockText, PieChart, NrqlQuery } from "nr1";
 
 const chartsStyle = {
   flex: 1,
@@ -20,8 +20,9 @@ const isEmpty = (object) => {
 };
 
 const buildQuery = (filter) => {
+  const defaultAttrs = "latest(network.bytes.received)";
   if (isEmpty(filter)) {
-    return `SELECT * FROM Metric`;
+    return `SELECT ${defaultAttrs} FROM Metric TIMESERIES`;
   }
 
   const attrs =
@@ -33,7 +34,7 @@ const buildQuery = (filter) => {
               : filter.function.value;
           return `${func}(${cluster.value})`;
         })
-      : "*";
+      : defaultAttrs;
   const attributes = Array.isArray(attrs) ? attrs.join(", ") : attrs;
 
   const facet =
@@ -46,10 +47,15 @@ const buildQuery = (filter) => {
       ? `SINCE ${filter.since.value} minutes ago`
       : "";
 
-  return `SELECT ${attributes} FROM Metric ${facet} ${since}`;
+  const timeseries =
+    filter.timeseries && !isEmpty(filter.timeseries)
+      ? `TIMESERIES ${filter.timeseries.value}`
+      : "TIMESERIES";
+
+  return `SELECT ${attributes} FROM Metric ${facet} ${since} ${timeseries}`;
 };
 
-export const Charts = ({ appliedFilter }) => {
+export const TimeseriesCharts = ({ appliedFilter }) => {
   const query = buildQuery(appliedFilter);
 
   return (
@@ -59,8 +65,8 @@ export const Charts = ({ appliedFilter }) => {
         {({ data }) => {
           return (
             <>
-              <BillboardChart fullWidth data={data} />
-              <TableChart fullWidth data={data} />
+              <LineChart fullWidth data={data} />
+              <PieChart fullWidth data={data} />
             </>
           );
         }}

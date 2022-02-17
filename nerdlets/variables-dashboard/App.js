@@ -1,6 +1,14 @@
 import React, { useState } from "react";
+import { nerdlet } from "nr1";
+
 import { FilterForm } from "./components/FilterForm";
 import { Charts } from "./components/Charts";
+import { TimeseriesCharts } from "./components/TimeseriesCharts";
+import { FilterProvider } from "./filter/filterContext"
+
+nerdlet.setConfig({
+  timePicker: false,
+});
 
 const style = {
   display: "flex",
@@ -11,17 +19,23 @@ const style = {
 };
 
 export const App = () => {
-  const [filter, setFilter] = useState({});
   const [appliedFilter, setAppliedFilter] = useState({});
 
   return (
-    <div style={style}>
-      <FilterForm
-        filter={filter}
-        setFilter={setFilter}
-        setAppliedFilter={setAppliedFilter}
-      />
-      <Charts appliedFilter={appliedFilter} />
-    </div>
+    <FilterProvider>
+      <div style={style}>
+        <FilterForm setAppliedFilter={setAppliedFilter} />
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            width: "98%",
+          }}
+        >
+          <Charts appliedFilter={appliedFilter} />
+          <TimeseriesCharts appliedFilter={appliedFilter} />
+        </div>
+      </div>
+    </FilterProvider>
   );
 };
