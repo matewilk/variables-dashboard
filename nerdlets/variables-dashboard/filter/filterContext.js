@@ -12,6 +12,10 @@ export const useFilter = () => {
 
 export const FilterProvider = (props) => {
   const [filter, setFilter] = useState({});
-  const value = useMemo(() => [filter, setFilter], [filter]);
+  const [appliedFilter, setAppliedFilter] = useState({});
+  const value = useMemo(
+    () => [filter, setFilter, appliedFilter, setAppliedFilter],
+    [filter, appliedFilter]
+  );
   return <FilterContext.Provider value={value} {...props} />;
 };

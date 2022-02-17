@@ -1,6 +1,8 @@
 import React from "react";
 import { LineChart, BlockText, PieChart, NrqlQuery } from "nr1";
 
+import { useFilter } from "../filter/filterContext";
+
 const chartsStyle = {
   flex: 1,
   height: "100%",
@@ -55,7 +57,8 @@ const buildQuery = (filter) => {
   return `SELECT ${attributes} FROM Metric ${facet} ${since} ${timeseries}`;
 };
 
-export const TimeseriesCharts = ({ appliedFilter }) => {
+export const TimeseriesCharts = () => {
+  const [_, __, appliedFilter] = useFilter();
   const query = buildQuery(appliedFilter);
 
   return (

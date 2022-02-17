@@ -1,6 +1,8 @@
 import React from "react";
 import { BillboardChart, BlockText, TableChart, NrqlQuery } from "nr1";
 
+import { useFilter } from "../filter/filterContext";
+
 const chartsStyle = {
   flex: 1,
   height: "100%",
@@ -49,7 +51,8 @@ const buildQuery = (filter) => {
   return `SELECT ${attributes} FROM Metric ${facet} ${since}`;
 };
 
-export const Charts = ({ appliedFilter }) => {
+export const Charts = () => {
+  const [_, __, appliedFilter] = useFilter();
   const query = buildQuery(appliedFilter);
 
   return (

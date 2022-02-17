@@ -19,12 +19,10 @@ const style = {
 };
 
 export const App = () => {
-  const [appliedFilter, setAppliedFilter] = useState({});
-
   return (
     <FilterProvider>
       <div style={style}>
-        <FilterForm setAppliedFilter={setAppliedFilter} />
+        <FilterForm />
         <div
           style={{
             display: "flex",
@@ -32,8 +30,8 @@ export const App = () => {
             width: "98%",
           }}
         >
-          <Charts appliedFilter={appliedFilter} />
-          <TimeseriesCharts appliedFilter={appliedFilter} />
+          <Charts />
+          <TimeseriesCharts />
         </div>
       </div>
     </FilterProvider>

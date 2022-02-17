@@ -13,8 +13,9 @@ const style = {
   padding: "5px",
 };
 
-export const FilterForm = ({ setAppliedFilter }) => {
-  const [filter] = useFilter()
+export const FilterForm = () => {
+  const [filter, _, __, setAppliedFilter] = useFilter()
+
   const onSubmit = (e) => {
     e.preventDefault();
     setAppliedFilter(filter);
