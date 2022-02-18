@@ -4,7 +4,7 @@ import { nerdlet } from "nr1";
 import { FilterForm } from "./components/FilterForm";
 import { Charts } from "./components/Charts";
 import { TimeseriesCharts } from "./components/TimeseriesCharts";
-import { FilterProvider } from "./filter/filterContext"
+import { FilterProvider } from "./filter/filterContext";
 
 nerdlet.setConfig({
   timePicker: false,

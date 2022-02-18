@@ -45,7 +45,7 @@ export const MultiSelect = ({
   isAsync = true,
   query = "",
 }) => {
-  const [filter, setFilter] = useFilter();
+  const { filter, setFilter } = useFilter();
   const [options, setOptions] = useState(initialOptions);
 
   useEffect(() => {

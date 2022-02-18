@@ -14,7 +14,7 @@ const style = {
 };
 
 export const FilterForm = () => {
-  const [filter, _, __, setAppliedFilter] = useFilter()
+  const { filter, setAppliedFilter } = useFilter();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ export const FilterForm = () => {
         isMulti={false}
       />
       <MultiSelect
-        name={"Cluster"}
+        name={"Parameter"}
         initialOptions={[
           { label: "cluster 1", value: "cluster 1" },
           { label: "cluster 2", value: "cluster 2" },
