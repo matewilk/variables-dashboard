@@ -2,22 +2,9 @@ import React from "react";
 import { BillboardChart, BlockText, TableChart, NrqlQuery } from "nr1";
 
 import { useQuery } from "../filter/filterContext";
+import { chartsStyle, blockTextStyle } from "./styles";
 
-const chartsStyle = {
-  flex: 1,
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
-  gap: "10px",
-};
-
-const blockTextStyle = {
-  backgroundColor: "whitesmoke",
-  borderRadius: "3px",
-  padding: "5px",
-};
-
-export const Charts = () => {
+export const TableCharts = () => {
   const { shouldFilter, attributes, facet, since } = useQuery();
 
   const query = shouldFilter

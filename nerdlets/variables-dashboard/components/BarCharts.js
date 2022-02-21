@@ -1,10 +1,10 @@
 import React from "react";
-import { LineChart, BlockText, PieChart, NrqlQuery } from "nr1";
+import { StackedBarChart, BlockText, NrqlQuery } from "nr1";
 
 import { useQuery } from "../filter/filterContext";
 import { chartsStyle, blockTextStyle } from "./styles";
 
-export const TimeseriesCharts = () => {
+export const BartCharts = () => {
   const { shouldFilter, attributes, facet, since, timeseries } = useQuery();
 
   const query = shouldFilter
@@ -18,8 +18,7 @@ export const TimeseriesCharts = () => {
         {({ data }) => {
           return (
             <>
-              <LineChart fullWidth data={data} />
-              <PieChart fullWidth data={data} />
+              <StackedBarChart fullWidth data={data} />
             </>
           );
         }}

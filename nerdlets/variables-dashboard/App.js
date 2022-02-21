@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { nerdlet } from "nr1";
 
 import { FilterForm } from "./components/FilterForm";
-import { Charts } from "./components/Charts";
+import { TableCharts } from "./components/TableCharts";
+import { BartCharts } from "./components/BarCharts";
 import { TimeseriesCharts } from "./components/TimeseriesCharts";
 import { FilterProvider } from "./filter/filterContext";
 
@@ -30,8 +31,9 @@ export const App = () => {
             width: "98%",
           }}
         >
-          <Charts />
+          <TableCharts />
           <TimeseriesCharts />
+          <BartCharts />
         </div>
       </div>
     </FilterProvider>
