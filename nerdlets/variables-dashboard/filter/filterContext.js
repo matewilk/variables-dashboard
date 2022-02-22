@@ -21,7 +21,7 @@ export const useFilter = () => {
   };
 };
 
-export const useQuery = () => {
+export const useQuery = ({ defaultAttrs = "*" } = {}) => {
   const context = useContext(FilterContext);
   if (!context) {
     throw new Error("useQuery must be used with a FilterProvider");
@@ -40,7 +40,7 @@ export const useQuery = () => {
               : appliedFilter.function.value;
           return `${func}(${parameter.value})`;
         })
-      : "*";
+      : defaultAttrs;
   const attributes = Array.isArray(attrs) ? attrs.join(", ") : attrs;
 
   const facet =

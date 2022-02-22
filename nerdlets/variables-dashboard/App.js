@@ -28,14 +28,15 @@ export const App = () => {
         <div
           style={{
             display: "flex",
+            flexWrap: "wrap",
             gap: "10px",
             width: "98%",
           }}
         >
+          <GaugeCharts />
           <TableCharts />
           <TimeseriesCharts />
           <BartCharts />
-          <GaugeCharts />
         </div>
       </div>
     </FilterProvider>

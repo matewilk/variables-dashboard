@@ -5,7 +5,9 @@ import { useQuery } from "../filter/filterContext";
 import { chartsStyle, blockTextStyle } from "./styles";
 
 export const TimeseriesCharts = () => {
-  const { shouldFilter, attributes, facet, since, timeseries } = useQuery();
+  const { shouldFilter, attributes, facet, since, timeseries } = useQuery({
+    defaultAttrs: "latest(network.bytes.received)",
+  });
 
   const query = shouldFilter
     ? `SELECT ${attributes} FROM Metric ${facet} ${since} ${timeseries}`
