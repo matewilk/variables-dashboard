@@ -13,7 +13,9 @@ export const TimeseriesCharts = () => {
 
   return (
     <div style={chartsStyle}>
-      <BlockText style={blockTextStyle}>{query}</BlockText>
+      <BlockText style={blockTextStyle}>
+        <code>{query}</code>
+      </BlockText>
       <NrqlQuery pollInterval={120000} accountIds={[2674886]} query={query}>
         {({ data }) => {
           return (

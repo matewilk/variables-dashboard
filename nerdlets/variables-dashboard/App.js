@@ -6,6 +6,7 @@ import { TableCharts } from "./components/TableCharts";
 import { BartCharts } from "./components/BarCharts";
 import { TimeseriesCharts } from "./components/TimeseriesCharts";
 import { FilterProvider } from "./filter/filterContext";
+import { GaugeCharts } from "./components/GaugeCharts";
 
 nerdlet.setConfig({
   timePicker: false,
@@ -34,6 +35,7 @@ export const App = () => {
           <TableCharts />
           <TimeseriesCharts />
           <BartCharts />
+          <GaugeCharts />
         </div>
       </div>
     </FilterProvider>
