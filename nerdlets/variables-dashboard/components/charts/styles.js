@@ -6,9 +6,3 @@ export const chartsStyle = {
   gap: "10px",
   minWidth: "300px",
 };
-
-export const blockTextStyle = {
-  backgroundColor: "whitesmoke",
-  borderRadius: "3px",
-  padding: "5px",
-};

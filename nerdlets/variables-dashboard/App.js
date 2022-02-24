@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { nerdlet } from "nr1";
 
-import { FilterForm } from "./components/FilterForm";
-import { TableCharts } from "./components/TableCharts";
-import { BartCharts } from "./components/BarCharts";
-import { TimeseriesCharts } from "./components/TimeseriesCharts";
 import { FilterProvider } from "./filter/filterContext";
-import { GaugeCharts } from "./components/GaugeCharts";
+import { FilterForm } from "./components/FilterForm";
+import { TableCharts } from "./components/charts/TableCharts";
+import { BartCharts } from "./components/charts/BarCharts";
+import { TimeseriesCharts } from "./components/charts/TimeseriesCharts";
+import { GaugeCharts } from "./components/charts/GaugeCharts";
 
 nerdlet.setConfig({
   timePicker: false,

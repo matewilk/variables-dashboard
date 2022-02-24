@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { NerdGraphQuery } from "nr1";
 
+import { accountIds } from "../constants";
 import { useFilter } from "../filter/filterContext";
 
 const colourStyles = {
@@ -11,7 +12,7 @@ const colourStyles = {
   }),
 };
 
-const accId = 2674886;
+const [accId] = accountIds;
 
 const formatQueryResponse = ({ error, data }) => {
   if (error) {

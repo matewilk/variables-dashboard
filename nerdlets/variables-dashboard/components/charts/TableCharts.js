@@ -1,8 +1,10 @@
 import React from "react";
-import { BillboardChart, BlockText, TableChart, NrqlQuery } from "nr1";
+import { BillboardChart, TableChart, NrqlQuery } from "nr1";
 
-import { useQuery } from "../filter/filterContext";
-import { chartsStyle, blockTextStyle } from "./styles";
+import { accountIds, pollInterval } from "../../constants";
+import { QueryTextbox } from "../QueryTextbox";
+import { useQuery } from "../../filter/filterContext";
+import { chartsStyle } from "./styles";
 
 export const TableCharts = () => {
   const { shouldFilter, attributes, facet, since } = useQuery();
@@ -13,10 +15,12 @@ export const TableCharts = () => {
 
   return (
     <div style={chartsStyle}>
-      <BlockText style={blockTextStyle}>
-        <code>{query}</code>
-      </BlockText>
-      <NrqlQuery pollInterval={120000} accountIds={[2674886]} query={query}>
+      <QueryTextbox query={query} />
+      <NrqlQuery
+        pollInterval={pollInterval}
+        accountIds={accountIds}
+        query={query}
+      >
         {({ data }) => {
           return (
             <>
