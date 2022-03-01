@@ -1,86 +1,13 @@
 import React from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { NrqlQuery } from "nr1";
 
+import { Gauge } from "./Gauge";
 import { accountIds, pollInterval } from "../../constants";
 import { QueryTextbox } from "../QueryTextbox";
 import { useQuery } from "../../filter/filterContext";
 import { chartsStyle } from "./styles";
 
-const COLORS = ["#00C49F", "#0088FE", "#FFBB28", "#FF8042"];
 
-const colours = (threshold) =>
-  threshold.map((item, index) => {
-    return { ...item, colour: COLORS[index] };
-  });
-
-const getColour = (values, percent) => {
-  let sum = 0;
-  for (let obj of values) {
-    sum += obj.value;
-    if (sum >= percent) {
-      return obj;
-    }
-  }
-  return { colour: "whitesmoke" };
-};
-
-const Gauge = ({ data }) => {
-  const dropped = data ? data[0].data[0].dropped : 0;
-  const gdata = [{ value: dropped }, { value: 1 - dropped }];
-  const percent = Math.round(dropped * 100);
-
-  const threshold = [{ value: 50 }, { value: 25 }, { value: 20 }, { value: 5 }];
-  const colors = colours(threshold);
-  return (
-    <div style={{ width: "100%", minWidth: "200px" }}>
-      <ResponsiveContainer aspect={2}>
-        <PieChart>
-          <Pie
-            data={threshold}
-            startAngle={180}
-            endAngle={0}
-            innerRadius={82}
-            outerRadius={90}
-            paddingAngle={1}
-            dataKey="value"
-          >
-            {colors.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.colour} />
-            ))}
-          </Pie>
-          <text
-            x={"50%"}
-            y={"50%"}
-            textAnchor="middle"
-            dominantBaseline="middle"
-          >
-            Bytes drop {percent}%
-          </text>
-          <Pie
-            data={gdata}
-            startAngle={180}
-            endAngle={0}
-            innerRadius={60}
-            outerRadius={80}
-            paddingAngle={1}
-            dataKey="value"
-          >
-            {gdata.map((entry, index) => {
-              const { colour } = getColour(colors, percent);
-              return (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={index === 1 ? "whitesmoke" : colour}
-                />
-              );
-            })}
-          </Pie>
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
-  );
-};
 
 export const GaugeCharts = () => {
   const { shouldFilter, since } = useQuery();
