@@ -41,6 +41,7 @@ const fetchOptions = async ({ accountId, query }) => {
 
 export const MultiSelect = ({
   name,
+  label,
   initialOptions,
   isMulti = true,
   isAsync = true,
@@ -69,7 +70,7 @@ export const MultiSelect = ({
     <Select
       styles={colourStyles}
       isMulti={isMulti}
-      placeholder={name}
+      placeholder={label ? label : name}
       options={options}
       onChange={onChange}
       isClearable={true}

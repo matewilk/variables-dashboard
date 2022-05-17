@@ -1,22 +1,21 @@
 import React from "react";
-import { LineChart, PieChart, NrqlQuery } from "nr1";
+import { TableChart, NrqlQuery } from "nr1";
 
 import { accountIds, pollInterval } from "../../constants";
 import { QueryTextbox } from "../QueryTextbox";
 import { useQuery } from "../../filter/filterContext";
 import { chartsStyle } from "./styles";
 
-export const TimeseriesCharts = () => {
-  const { shouldFilter, attributes, facet, since, timeseries } = useQuery({
-    defaultAttrs: "latest(network.bytes.received)",
-  });
+export const IncidentsChart = () => {
+  const { shouldFilter, since } = useQuery();
 
   const query = shouldFilter
-    ? `SELECT ${attributes} FROM Metric ${facet} ${since} ${timeseries}`
-    : `SELECT latest(network.bytes.received) FROM Metric TIMESERIES`;
+    ? `SELECT conditionName, incidentLink FROM NrAiIncident WHERE event = 'open' ${since}`
+    : `SELECT conditionName, incidentLink FROM NrAiIncident WHERE event = 'open' SINCE 1 day ago`;
 
   return (
     <div style={chartsStyle}>
+      Incidents
       <QueryTextbox query={query} />
       <NrqlQuery
         pollInterval={pollInterval}
@@ -26,8 +25,7 @@ export const TimeseriesCharts = () => {
         {({ data }) => {
           return (
             <>
-              <LineChart fullWidth data={data} />
-              <PieChart fullWidth data={data} />
+              <TableChart fullWidth data={data} />
             </>
           );
         }}

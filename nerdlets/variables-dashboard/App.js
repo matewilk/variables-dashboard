@@ -3,10 +3,11 @@ import { nerdlet } from "nr1";
 
 import { FilterProvider } from "./filter/filterContext";
 import { FilterForm } from "./components/FilterForm";
-import { TableCharts } from "./components/charts/TableCharts";
-import { BartCharts } from "./components/charts/BarCharts";
-import { TimeseriesCharts } from "./components/charts/TimeseriesCharts";
-import { GaugeCharts } from "./components/charts/GaugeCharts";
+
+import { CpuUtilisation } from "./components/charts/CpuUtilisation";
+import { MemoryUtilisation } from "./components/charts/MemoryUtilisation";
+import { IncidentsChart } from "./components/charts/IncidentsChart";
+
 
 nerdlet.setConfig({
   timePicker: false,
@@ -33,10 +34,9 @@ export const App = () => {
             width: "98%",
           }}
         >
-          <GaugeCharts />
-          <TableCharts />
-          <TimeseriesCharts />
-          <BartCharts />
+          <CpuUtilisation />
+          <MemoryUtilisation />
+          <IncidentsChart />
         </div>
       </div>
     </FilterProvider>

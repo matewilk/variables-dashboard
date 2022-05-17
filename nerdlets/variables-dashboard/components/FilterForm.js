@@ -24,39 +24,37 @@ export const FilterForm = () => {
   return (
     <form style={style} name="filter-form">
       <MultiSelect
-        name={"Function"}
-        initialOptions={[
-          { label: "min", value: "min" },
-          { label: "max", value: "max" },
-          { label: "sum", value: "sum" },
-          { label: "latest", value: "latest" },
-        ]}
+        name={"Cluster"}
+        initialOptions={[]}
+        query={"FROM K8sClusterSample SELECT uniques(clusterName) as items"}
+        isAsync={true}
+      />
+      <MultiSelect
+        name={"Service"}
+        initialOptions={[]}
+        query={"FROM K8sPodSample SELECT uniques(`label.app`) as items"}
+        isMulti={false}
+        isAsync={true}
+      />
+      <MultiSelect
+        name={"facetbycluster"}
+        label={"Facet by cluster"}
+        initialOptions={[{ label: "true", value: true }]}
         isAsync={false}
         isMulti={false}
       />
       <MultiSelect
-        name={"Parameter"}
-        initialOptions={[
-          { label: "cluster 1", value: "cluster 1" },
-          { label: "cluster 2", value: "cluster 2" },
-        ]}
-        query={`SELECT uniques(metricName) as items FROM Metric`}
-      />
-      <MultiSelect
-        name={"Facet"}
-        initialOptions={[
-          { label: "host.name", value: "host.name" },
-          { label: "via", value: "via" },
-        ]}
-        isAsync={false}
-      />
-      <MultiSelect
         name={"Since"}
         initialOptions={[
-          { label: "30 min", value: "30" },
-          { label: "60 min", value: "60" },
-          { label: "90 min", value: "90" },
-          { label: "120 min", value: "120" },
+          { label: "30 minutes", value: "30 minutes" },
+          { label: "60 minutes", value: "60 minutes" },
+          { label: "90 minutes", value: "90 minutes" },
+          { label: "2 hours", value: "2 hours" },
+          { label: "3 hours", value: "3 hours" },
+          { label: "4 hours", value: "4 hours" },
+          { label: "6 hours", value: "6 hours" },
+          { label: "12 hours", value: "12 hours" },
+          { label: "24 hours", value: "24 hours" },
         ]}
         isAsync={false}
         isMulti={false}
@@ -72,43 +70,6 @@ export const FilterForm = () => {
         isAsync={false}
         isMulti={false}
       />
-      {/* <MultiSelect
-      name={"Service"}
-      isMulti={false}
-      initialOptions={[
-        { label: "service 1", value: "service 1" },
-        { label: "service 2", value: "service 2" },
-      ]}
-    />
-    <MultiSelect
-      placeholder={"Facet By"}
-      initialOptions={[
-        { label: "attr 1", value: "attr 1" },
-        { label: "attr 2", value: "attr 2" },
-      ]}
-    />
-    <MultiSelect
-      name={"Percentile"}
-      isMulti={false}
-      initialOptions={[
-        { label: "0.5", value: "0.5" },
-        { label: "0.9", value: "0.9" },
-      ]}
-    />
-    <MultiSelect
-      name={"Error"}
-      initialOptions={[
-        { label: "400", value: "400" },
-        { label: "404", value: "404" },
-        { label: "500", value: "500" },
-        { label: "200", value: "200" },
-      ]}
-    />
-    <MultiSelect
-      name={"Interval"}
-      isMulti={false}
-      initialOptions={[{ label: "auto", value: "auto" }]}
-    /> */}
       <Button type={Button.TYPE.PRIMARY} onClick={onSubmit}>
         Filter
       </Button>

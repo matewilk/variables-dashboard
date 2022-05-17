@@ -20,9 +20,9 @@ const getColour = (values, percent) => {
 };
 
 export const Gauge = ({ data }) => {
-  const dropped = data ? data[0].data[0].dropped : 0;
-  const gdata = [{ value: dropped }, { value: 1 - dropped }];
-  const percent = Math.round(dropped * 100);
+  const results = data ? data[0].data[0].results : 0;
+  const gdata = [{ value: results }, { value: 1 - results }];
+  const percent = Math.round(results * 100);
 
   const threshold = [{ value: 50 }, { value: 25 }, { value: 20 }, { value: 5 }];
   const colors = colours(threshold);
@@ -49,7 +49,7 @@ export const Gauge = ({ data }) => {
             textAnchor="middle"
             dominantBaseline="middle"
           >
-            Bytes drop {percent}%
+            {percent}%
           </text>
           <Pie
             data={gdata}

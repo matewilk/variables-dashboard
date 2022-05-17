@@ -31,28 +31,26 @@ export const useQuery = ({ defaultAttrs = "*" } = {}) => {
 
   const shouldFilter = !isEmpty(appliedFilter);
 
-  const attrs =
-    appliedFilter.parameter && appliedFilter.parameter.length
-      ? appliedFilter.parameter.map((parameter) => {
-          const func =
-            !appliedFilter.function || isEmpty(appliedFilter.function)
-              ? ""
-              : appliedFilter.function.value;
-          return `${func}(${parameter.value})`;
-        })
-      : defaultAttrs;
-  const attributes = Array.isArray(attrs) ? attrs.join(", ") : attrs;
+  const cluster =
+    appliedFilter.cluster && !isEmpty(appliedFilter.cluster)
+      ? `clusterName IN (${appliedFilter.cluster
+          .map((cluster) => `'${cluster.value}'`)
+          .join(", ")})`
+      : "";
 
-  const facet =
-    appliedFilter.facet &&
-    Array.isArray(appliedFilter.facet) &&
-    appliedFilter.facet.length
-      ? `FACET ${appliedFilter.facet.map((facet) => facet.value).join(", ")}`
+  const service =
+    appliedFilter.service && !isEmpty(appliedFilter.service)
+      ? `label.app = ${appliedFilter.service.value}`
+      : "";
+
+  const facetByCluster =
+    appliedFilter.facetbycluster && !isEmpty(appliedFilter.facetbycluster)
+      ? `FACET clusterName`
       : "";
 
   const since =
     appliedFilter.since && !isEmpty(appliedFilter.since)
-      ? `SINCE ${appliedFilter.since.value} minutes ago`
+      ? `SINCE ${appliedFilter.since.value} AGO`
       : "";
 
   const timeseries =
@@ -62,8 +60,9 @@ export const useQuery = ({ defaultAttrs = "*" } = {}) => {
 
   return {
     shouldFilter,
-    attributes,
-    facet,
+    cluster,
+    service,
+    facetByCluster,
     since,
     timeseries,
   };
