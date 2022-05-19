@@ -24,9 +24,10 @@ export const IncidentsChart = () => {
       >
         {({ data }) => {
           return (
-            <>
+            // prevent dropdown list to be obscured by table title by zIndex
+            <div style={{ zIndex: 0 }}>
               <TableChart fullWidth data={data} />
-            </>
+            </div>
           );
         }}
       </NrqlQuery>
