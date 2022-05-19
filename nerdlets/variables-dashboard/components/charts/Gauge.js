@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 const COLORS = ["#00C49F", "#0088FE", "#FFBB28", "#FF8042"];
@@ -19,7 +19,7 @@ const getColour = (values, percent) => {
   return { colour: "whitesmoke" };
 };
 
-export const Gauge = ({ data }) => {
+export const Gauge = ({ data, title }) => {
   const results = data ? data[0].data[0].results : 0;
   const gdata = [{ value: results }, { value: 1 - results }];
   const percent = Math.round(results * 100);
@@ -27,8 +27,15 @@ export const Gauge = ({ data }) => {
   const threshold = [{ value: 50 }, { value: 25 }, { value: 20 }, { value: 5 }];
   const colors = colours(threshold);
   return (
-    <div style={{ width: "100%", minWidth: "200px" }}>
-      <ResponsiveContainer aspect={2}>
+    <div
+      style={{
+        minWidth: 0,
+        maxWidth: "100%",
+        width: "100%",
+        height: "180px",
+      }}
+    >
+      <ResponsiveContainer width="100%" height={200}>
         <PieChart>
           <Pie
             data={threshold}
@@ -49,7 +56,7 @@ export const Gauge = ({ data }) => {
             textAnchor="middle"
             dominantBaseline="middle"
           >
-            {percent}%
+            {title} {percent}%
           </text>
           <Pie
             data={gdata}

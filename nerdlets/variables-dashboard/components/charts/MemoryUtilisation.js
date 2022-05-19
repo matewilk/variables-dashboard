@@ -5,7 +5,7 @@ import { Gauge } from "./Gauge";
 import { accountIds, pollInterval } from "../../constants";
 import { QueryTextbox } from "../QueryTextbox";
 import { useQuery } from "../../filter/filterContext";
-import { chartsStyle } from "./styles";
+import { chartsStyle, chartInnerStyle, chartErrorStyle } from "./styles";
 
 const memoryUtilisationInner = (
   { service, cluster, since, gauge = false } = { service, cluster, since }
@@ -29,7 +29,7 @@ const memoryUtilisationQuery = ({
   SELECT min(memoryUtilisation) AS min, max(memoryUtilisation) AS max, average(memoryUtilisation) AS average
   FROM (
     ${memoryUtilisationInner({ cluster, service })}
-    FACET clusterName TIMESERIES MAX
+    ${facetByCluster} TIMESERIES MAX
   ) ${facetByCluster}
   ${timeseries} ${since}
 `;
@@ -68,7 +68,7 @@ export const MemoryUtilisation = () => {
           }
           return (
             <>
-              <Gauge data={data} />
+              <Gauge data={data} title="AVG Mem" />
             </>
           );
         }}
@@ -81,13 +81,11 @@ export const MemoryUtilisation = () => {
         query={query}
       >
         {({ data, error }) => {
-          if (error) {
-            console.error(error);
-          }
           return (
-            <>
+            <div style={chartInnerStyle}>
+              {error ? <div style={chartErrorStyle}>{error.message}</div> : ""}
               <LineChart fullWidth data={data} />
-            </>
+            </div>
           );
         }}
       </NrqlQuery>

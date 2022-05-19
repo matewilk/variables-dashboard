@@ -55,6 +55,8 @@ export const FilterForm = () => {
           { label: "6 hours", value: "6 hours" },
           { label: "12 hours", value: "12 hours" },
           { label: "24 hours", value: "24 hours" },
+          { label: "3 days", value: "3 days" },
+          { label: "7 days", value: "7 days" },
         ]}
         isAsync={false}
         isMulti={false}

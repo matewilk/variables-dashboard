@@ -5,7 +5,7 @@ import { Gauge } from "./Gauge";
 import { accountIds, pollInterval } from "../../constants";
 import { QueryTextbox } from "../QueryTextbox";
 import { useQuery } from "../../filter/filterContext";
-import { chartsStyle } from "./styles";
+import { chartsStyle, chartInnerStyle, chartErrorStyle } from "./styles";
 
 const cpuUtilisationInner = (
   { service, cluster, since, gauge = false } = { service, cluster, since }
@@ -29,14 +29,13 @@ const cpuUtilisationQuery = ({
   SELECT min(cpuUtilisation) AS min, max(cpuUtilisation) AS max, average(cpuUtilisation) AS average
   FROM (
     ${cpuUtilisationInner({ cluster, service })}
-    FACET clusterName TIMESERIES MAX
+    ${facetByCluster} TIMESERIES MAX
   ) ${facetByCluster}
   ${timeseries} ${since}
 `;
 
 export const CpuUtilisation = () => {
-  const { cluster, service, facetByCluster, since, timeseries } =
-    useQuery({});
+  const { cluster, service, facetByCluster, since, timeseries } = useQuery({});
 
   const gauge = true;
   const gaugeQuery = cpuUtilisationInner({
@@ -69,7 +68,7 @@ export const CpuUtilisation = () => {
           }
           return (
             <>
-              <Gauge data={data} />
+              <Gauge data={data} title="AVG CPU" />
             </>
           );
         }}
@@ -82,13 +81,11 @@ export const CpuUtilisation = () => {
         query={query}
       >
         {({ data, error }) => {
-          if (error) {
-            console.error(error);
-          }
           return (
-            <>
+            <div style={chartInnerStyle}>
+              {error ? <div style={chartErrorStyle}>{error.message}</div> : "" }
               <LineChart fullWidth data={data} />
-            </>
+            </div>
           );
         }}
       </NrqlQuery>

@@ -8,7 +8,12 @@ const blockTextStyle = {
 };
 
 export const QueryTextbox = ({ query }) => (
-  <BlockText style={blockTextStyle}>
-    <code>{query}</code>
-  </BlockText>
+  <section>
+    <details>
+      <summary>Query</summary>
+      <BlockText style={blockTextStyle}>
+        <code>{query}</code>
+      </BlockText>
+    </details>
+  </section>
 );
