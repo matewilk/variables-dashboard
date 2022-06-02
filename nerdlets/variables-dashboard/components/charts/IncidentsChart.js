@@ -3,15 +3,17 @@ import { TableChart, NrqlQuery } from "nr1";
 
 import { accountIds, pollInterval } from "../../constants";
 import { QueryTextbox } from "../QueryTextbox";
-import { useQuery } from "../../filter/filterContext";
+import { usePlatformState } from "../../filter/filterContext";
 import { chartsStyle } from "./styles";
 
 export const IncidentsChart = () => {
-  const { shouldFilter, since } = useQuery();
+  const { timeRangePlatformState } = usePlatformState();
 
-  const query = shouldFilter
-    ? `SELECT conditionName, incidentLink FROM NrAiIncident WHERE event = 'open' ${since}`
-    : `SELECT conditionName, incidentLink FROM NrAiIncident WHERE event = 'open' SINCE 1 day ago`;
+  const query = `
+    SELECT conditionName, incidentLink 
+    FROM NrAiIncident 
+    WHERE event = 'open' ${timeRangePlatformState}
+  `;
 
   return (
     <div style={chartsStyle}>

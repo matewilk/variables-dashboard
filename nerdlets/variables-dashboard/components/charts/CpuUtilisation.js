@@ -4,11 +4,14 @@ import { LineChart, NrqlQuery } from "nr1";
 import { Gauge } from "./Gauge";
 import { accountIds, pollInterval } from "../../constants";
 import { QueryTextbox } from "../QueryTextbox";
-import { useQuery } from "../../filter/filterContext";
+import { useQuery, usePlatformState } from "../../filter/filterContext";
 import { chartsStyle, chartInnerStyle, chartErrorStyle } from "./styles";
 
 const cpuUtilisationInner = (
-  { service, cluster, since, gauge = false } = { service, cluster, since }
+  { service, cluster, timeRangePlatformState, gauge = false } = {
+    service,
+    cluster,
+  }
 ) => `
   FROM K8sContainerSample
   SELECT sum(cpuUsedCores) / sum(cpuRequestedCores) AS ${
@@ -16,41 +19,45 @@ const cpuUtilisationInner = (
   }
   ${!!service ? `WHERE ${service}` : ``}
   ${!!cluster ? (!!service ? `AND ${cluster}` : `WHERE ${cluster}`) : ``}
-  ${gauge ? since : ``}
+  ${gauge ? timeRangePlatformState : ``}
 `;
 
 const cpuUtilisationQuery = ({
   timeseries,
-  since,
   facetByCluster,
   service,
   cluster,
+  timeRangePlatformState,
 }) => `
-  SELECT min(cpuUtilisation) AS min, max(cpuUtilisation) AS max, average(cpuUtilisation) AS average
+  SELECT 
+    min(cpuUtilisation) AS min, 
+    max(cpuUtilisation) AS max, 
+    average(cpuUtilisation) AS average
   FROM (
     ${cpuUtilisationInner({ cluster, service })}
     ${facetByCluster} TIMESERIES MAX
   ) ${facetByCluster}
-  ${timeseries} ${since}
+  ${timeseries} ${timeRangePlatformState}
 `;
 
 export const CpuUtilisation = () => {
-  const { cluster, service, facetByCluster, since, timeseries } = useQuery({});
+  const { cluster, service, facetByCluster, timeseries } = useQuery({});
+  const { timeRangePlatformState } = usePlatformState();
 
   const gauge = true;
   const gaugeQuery = cpuUtilisationInner({
     service,
     cluster,
-    since,
     gauge,
+    timeRangePlatformState,
   });
 
   const query = cpuUtilisationQuery({
     timeseries,
-    since,
     facetByCluster,
     service,
     cluster,
+    timeRangePlatformState,
   });
 
   return (
@@ -83,7 +90,7 @@ export const CpuUtilisation = () => {
         {({ data, error }) => {
           return (
             <div style={chartInnerStyle}>
-              {error ? <div style={chartErrorStyle}>{error.message}</div> : "" }
+              {error ? <div style={chartErrorStyle}>{error.message}</div> : ""}
               <LineChart fullWidth data={data} />
             </div>
           );
