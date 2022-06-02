@@ -1,6 +1,6 @@
 {
   "schemaType": "NERDLET",
   "id": "variables-dashboard",
-  "displayName": "VariablesDashboard",
-  "description": ""
+  "displayName": "Kubernetes Dashboard",
+  "description": "Display and filter your Kubernetes data"
 }

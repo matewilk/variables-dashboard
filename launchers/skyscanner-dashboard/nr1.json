@@ -1,7 +1,7 @@
 {
   "schemaType": "LAUNCHER",
   "id": "skyscanner-dashboard",
-  "displayName": "SkyscannerDashboard",
-  "description": "Describe me",
+  "displayName": "Kubernetes Dashboard",
+  "description": "Display and filter your Kubernetes data",
   "rootNerdletId": "77e42432-3e88-40e9-a397-c5ed2ffe33a7.variables-dashboard"
 }
