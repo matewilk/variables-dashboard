@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useState, useMemo } from "react";
+import { useContext } from "react";
 import { timeRangeToNrql } from "@newrelic/nr1-community";
+
+import { FilterContext } from "./FilterContextProvider";
 
 const isEmpty = (object) => {
   return Object.keys(object).length === 0;
 };
-
-const FilterContext = createContext();
 
 export const usePlatformState = () => {
   const context = useContext(FilterContext);
@@ -36,7 +36,7 @@ export const useFilter = () => {
   };
 };
 
-export const useQuery = ({ defaultAttrs = "*" } = {}) => {
+export const useQuery = () => {
   const context = useContext(FilterContext);
   if (!context) {
     throw new Error("useQuery must be used with a FilterProvider");
@@ -75,22 +75,4 @@ export const useQuery = ({ defaultAttrs = "*" } = {}) => {
     facetByCluster,
     timeseries,
   };
-};
-
-export const FilterProvider = (props) => {
-  const { platformState } = props;
-  const [filter, setFilter] = useState({});
-  const [appliedFilter, setAppliedFilter] = useState({});
-  const value = useMemo(
-    () => ({
-      filter,
-      setFilter,
-      appliedFilter,
-      setAppliedFilter,
-      platformState,
-    }),
-    [filter, appliedFilter, platformState]
-  );
-
-  return <FilterContext.Provider value={value} {...props} />;
 };

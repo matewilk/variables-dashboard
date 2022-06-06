@@ -3,7 +3,7 @@ import { TableChart, NrqlQuery } from "nr1";
 
 import { accountIds, pollInterval } from "../../constants";
 import { QueryTextbox } from "../QueryTextbox";
-import { usePlatformState } from "../../filter/filterContext";
+import { usePlatformState } from "../../filter/hooks";
 import { chartsStyle } from "./styles";
 
 export const IncidentsChart = () => {

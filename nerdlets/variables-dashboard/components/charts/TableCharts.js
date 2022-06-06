@@ -3,7 +3,7 @@ import { BillboardChart, TableChart, NrqlQuery } from "nr1";
 
 import { accountIds, pollInterval } from "../../constants";
 import { QueryTextbox } from "../QueryTextbox";
-import { useQuery } from "../../filter/filterContext";
+import { useQuery } from "../../filter/hooks";
 import { chartsStyle } from "./styles";
 
 export const TableCharts = () => {

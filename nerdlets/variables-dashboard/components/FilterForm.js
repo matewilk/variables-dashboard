@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "nr1";
 
 import { MultiSelect } from "./MultiSelect";
-import { useFilter } from "../filter/filterContext";
+import { useFilter } from "../filter/hooks";
 
 const style = {
   display: "flex",
@@ -28,6 +28,7 @@ export const FilterForm = () => {
         initialOptions={[]}
         query={"FROM K8sClusterSample SELECT uniques(clusterName) as items"}
         isAsync={true}
+        isMulti={true}
       />
       <MultiSelect
         name={"Service"}

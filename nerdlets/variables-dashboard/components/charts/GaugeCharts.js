@@ -4,7 +4,7 @@ import { NrqlQuery } from "nr1";
 import { Gauge } from "./Gauge";
 import { accountIds, pollInterval } from "../../constants";
 import { QueryTextbox } from "../QueryTextbox";
-import { useQuery } from "../../filter/filterContext";
+import { useQuery } from "../../filter/hooks";
 import { chartsStyle } from "./styles";
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { PlatformStateContext } from "nr1";
 
-import { FilterProvider } from "./filter/filterContext";
+import { FilterProvider } from "./filter/FilterContextProvider";
 import { FilterForm } from "./components/FilterForm";
 
 import { CpuUtilisation } from "./components/charts/CpuUtilisation";

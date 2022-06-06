@@ -3,7 +3,7 @@ import Select from "react-select";
 import { NerdGraphQuery } from "nr1";
 
 import { accountIds } from "../constants";
-import { useFilter } from "../filter/filterContext";
+import { useFilter } from "../filter/hooks";
 
 const colourStyles = {
   control: (styles) => ({
@@ -16,7 +16,7 @@ const [accId] = accountIds;
 
 const formatQueryResponse = ({ error, data }) => {
   if (error) {
-    console.log(error);
+    console.error(error);
   }
 
   const items = data.actor.account.nrql.results[0].items;
@@ -43,8 +43,8 @@ export const MultiSelect = ({
   name,
   label,
   initialOptions,
-  isMulti = true,
-  isAsync = true,
+  isMulti = false,
+  isAsync = false,
   query = "",
 }) => {
   const { filter, setFilter } = useFilter();

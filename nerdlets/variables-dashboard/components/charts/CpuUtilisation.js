@@ -4,7 +4,7 @@ import { LineChart, NrqlQuery } from "nr1";
 import { Gauge } from "./Gauge";
 import { accountIds, pollInterval } from "../../constants";
 import { QueryTextbox } from "../QueryTextbox";
-import { useQuery, usePlatformState } from "../../filter/filterContext";
+import { useQuery, usePlatformState } from "../../filter/hooks";
 import { chartsStyle, chartInnerStyle, chartErrorStyle } from "./styles";
 
 const cpuUtilisationInner = (
